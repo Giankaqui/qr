@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============================================================= -->
+<!-- ==  EDITA SOLO ESTA LÍNEA PARA CAMBIAR EL DESTINO DEL QR  == -->
+<!-- ==  Cambia la URL de content="0; url=..." (deja el 0;)    == -->
+<!-- ============================================================= -->
+<meta http-equiv="refresh" content="0; url=https://example.com">
+<!-- ============================================================= -->
+
+<title>Redirigiendo…</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    text-align: center; padding: 24px;
+  }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+  <main>
+    <p>Redirigiendo…</p>
+    <p>Si no ocurre nada, <a id="destino" href="https://example.com">abre este enlace</a>.</p>
+  </main>
+
+<script>
+  // Fallback: toma la URL del <meta refresh> de arriba, así solo hay UN sitio que editar.
+  (function () {
+    var meta = document.querySelector('meta[http-equiv="refresh"]');
+    var destino = meta && meta.content.replace(/^\s*\d+\s*;\s*url=/i, '').trim();
+    if (!destino) return;
+    document.getElementById('destino').href = destino;   // enlace visible siempre correcto
+    setTimeout(function () { location.replace(destino); }, 100);
+  })();
+</script>
+</body>
+</html>

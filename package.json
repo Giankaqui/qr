@@ -1,0 +1,13 @@
+{
+  "name": "qr-redirect",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Redirector para QR dinámico servido por GitHub Pages",
+  "scripts": {
+    "qr": "node generate-qr.mjs"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}
