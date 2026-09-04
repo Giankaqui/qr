@@ -11,7 +11,7 @@
 <meta http-equiv="refresh" content="0; url=https://friv.com">
 <!-- ============================================================= -->
 
-<title>Redirigiendo…</title>
+<title> </title>
 <style>
   :root { color-scheme: light dark; }
   body {
@@ -21,22 +21,29 @@
     text-align: center; padding: 24px;
   }
   a { color: inherit; }
+  /* La página se ve completamente vacía: el fallback solo aparece si a los 2 s
+     no hubo redirección (meta refresh y JS bloqueados a la vez). */
+  #fallback { display: none; }
 </style>
 </head>
 <body>
-  <main>
-    <p>Redirigiendo…</p>
-    <p>Si no ocurre nada, <a id="destino" href="https://example.com">abre este enlace</a>.</p>
+  <main id="fallback">
+    <p>No se pudo redirigir automáticamente.</p>
+    <p><a id="destino" href="https://friv.com">Abrir el enlace</a></p>
   </main>
 
 <script>
-  // Fallback: toma la URL del <meta refresh> de arriba, así solo hay UN sitio que editar.
+  // Toma la URL del <meta refresh> de arriba, así solo hay UN sitio que editar.
   (function () {
     var meta = document.querySelector('meta[http-equiv="refresh"]');
     var destino = meta && meta.content.replace(/^\s*\d+\s*;\s*url=/i, '').trim();
     if (!destino) return;
-    document.getElementById('destino').href = destino;   // enlace visible siempre correcto
-    setTimeout(function () { location.replace(destino); }, 100);
+    document.getElementById('destino').href = destino;
+    location.replace(destino);
+    // Red de seguridad: si seguimos aquí a los 2 s, mostramos el enlace manual.
+    setTimeout(function () {
+      document.getElementById('fallback').style.display = 'block';
+    }, 2000);
   })();
 </script>
 </body>
